@@ -1,14 +1,12 @@
 import express, { Request, Response } from "express";
 import Movie from "../movie.model";
+import { movieControllers } from "./movie.controller";
 const router = express.Router();
 
-router.post("/", async (req: Request, res: Response) => {
-  const result = await Movie.create(req.body);
-  res.json({
-    success: true,
-    message: "Movie data send successfully!",
-    data: result,
-  });
-});
+router.post("/", movieControllers.createMovie);
+router.get("/", movieControllers.getAllMovies);
+router.get("/:movieId", movieControllers.getAMovie);
+
+router.get("/:slug", movieControllers.getMovieBySlug);
 
 export const moviesRoute = router;
